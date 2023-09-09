@@ -11,15 +11,22 @@ mobileMenuIcon.addEventListener('click', toggleMobileMenu);
 
 menuCarritoIcon.addEventListener('click', toggleshoppingCartContainer);
 
-cardsContainer = document.querySelector('.cards-container');
+const cardsContainer = document.querySelector('.cards-container');
+
+const productDetailContainer = document.querySelector('#productDetail');
+const productDetailClose = document.querySelector('.product-detail-close');
+
+productDetailClose.addEventListener('click', closeProductDetail);
 
 function toggleDesktopMenu() {
-    
 
     if (!shoppingCartContainer.classList.contains('inactive')) {
         shoppingCartContainer.classList.add('inactive');
     }
 
+    if (!productDetailContainer.classList.contains('inactive')) {   
+        productDetailContainer.classList.add('inactive');
+    }
     desktopMenu.classList.toggle('inactive');
 }
 
@@ -27,6 +34,9 @@ function toggleMobileMenu() {
 
     if (!shoppingCartContainer.classList.contains('inactive')) {
         shoppingCartContainer.classList.add('inactive');
+    }
+    if (!productDetailContainer.classList.contains('inactive')) {   
+        productDetailContainer.classList.add('inactive');
     }
 
     mobileMenu.classList.toggle('inactive');
@@ -40,10 +50,27 @@ function toggleshoppingCartContainer() {
     else if (!desktopMenu.classList.contains('inactive')) {
         desktopMenu.classList.add('inactive');
     }
+    if (!productDetailContainer.classList.contains('inactive')) {   
+        productDetailContainer.classList.add('inactive');
+    }
 
     shoppingCartContainer.classList.toggle('inactive');
 }
 
+function openProductDetail() {
+    productDetailContainer.classList.remove('inactive');
+
+    if (!desktopMenu.classList.contains('inactive')) {
+        desktopMenu.classList.add('inactive');
+    }
+    if (!shoppingCartContainer.classList.contains('inactive')) {
+        shoppingCartContainer.classList.add('inactive');
+    }
+}
+
+function closeProductDetail() {
+    productDetailContainer.classList.add('inactive');
+}
 
 const productList = [];
 productList.push({
@@ -84,6 +111,7 @@ function createProductCard(productList) {
 
         const productImage = document.createElement('img');
         productImage.setAttribute('src', product.Image);
+        productImage.addEventListener('click', openProductDetail)
 
         const productInfo = document.createElement('div');
         productInfo.classList.add('product-info');
